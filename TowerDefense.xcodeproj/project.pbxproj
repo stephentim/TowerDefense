@@ -1,0 +1,593 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CD8C5D232D57BC44000B188A /* TowerDefenseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8C5D222D57BC44000B188A /* TowerDefenseApp.swift */; };
+		CD8C5D252D57BC44000B188A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8C5D242D57BC44000B188A /* ContentView.swift */; };
+		CD8C5D272D57BC45000B188A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD8C5D262D57BC45000B188A /* Assets.xcassets */; };
+		CD8C5D2A2D57BC45000B188A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD8C5D292D57BC45000B188A /* Preview Assets.xcassets */; };
+		CD8C5D342D57BC45000B188A /* TowerDefenseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8C5D332D57BC45000B188A /* TowerDefenseTests.swift */; };
+		CD8C5D3E2D57BC45000B188A /* TowerDefenseUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8C5D3D2D57BC45000B188A /* TowerDefenseUITests.swift */; };
+		CD8C5D402D57BC45000B188A /* TowerDefenseUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8C5D3F2D57BC45000B188A /* TowerDefenseUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		CD8C5D302D57BC45000B188A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CD8C5D172D57BC44000B188A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CD8C5D1E2D57BC44000B188A;
+			remoteInfo = TowerDefense;
+		};
+		CD8C5D3A2D57BC45000B188A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CD8C5D172D57BC44000B188A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CD8C5D1E2D57BC44000B188A;
+			remoteInfo = TowerDefense;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		CD8C5D1F2D57BC44000B188A /* TowerDefense.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TowerDefense.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD8C5D222D57BC44000B188A /* TowerDefenseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TowerDefenseApp.swift; sourceTree = "<group>"; };
+		CD8C5D242D57BC44000B188A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		CD8C5D262D57BC45000B188A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CD8C5D292D57BC45000B188A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		CD8C5D2F2D57BC45000B188A /* TowerDefenseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TowerDefenseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD8C5D332D57BC45000B188A /* TowerDefenseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TowerDefenseTests.swift; sourceTree = "<group>"; };
+		CD8C5D392D57BC45000B188A /* TowerDefenseUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TowerDefenseUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD8C5D3D2D57BC45000B188A /* TowerDefenseUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TowerDefenseUITests.swift; sourceTree = "<group>"; };
+		CD8C5D3F2D57BC45000B188A /* TowerDefenseUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TowerDefenseUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CD8C5D1C2D57BC44000B188A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CD8C5D2C2D57BC45000B188A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CD8C5D362D57BC45000B188A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CD8C5D162D57BC44000B188A = {
+			isa = PBXGroup;
+			children = (
+				CD8C5D212D57BC44000B188A /* TowerDefense */,
+				CD8C5D322D57BC45000B188A /* TowerDefenseTests */,
+				CD8C5D3C2D57BC45000B188A /* TowerDefenseUITests */,
+				CD8C5D202D57BC44000B188A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CD8C5D202D57BC44000B188A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CD8C5D1F2D57BC44000B188A /* TowerDefense.app */,
+				CD8C5D2F2D57BC45000B188A /* TowerDefenseTests.xctest */,
+				CD8C5D392D57BC45000B188A /* TowerDefenseUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CD8C5D212D57BC44000B188A /* TowerDefense */ = {
+			isa = PBXGroup;
+			children = (
+				CD8C5D222D57BC44000B188A /* TowerDefenseApp.swift */,
+				CD8C5D242D57BC44000B188A /* ContentView.swift */,
+				CD8C5D262D57BC45000B188A /* Assets.xcassets */,
+				CD8C5D282D57BC45000B188A /* Preview Content */,
+			);
+			path = TowerDefense;
+			sourceTree = "<group>";
+		};
+		CD8C5D282D57BC45000B188A /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				CD8C5D292D57BC45000B188A /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		CD8C5D322D57BC45000B188A /* TowerDefenseTests */ = {
+			isa = PBXGroup;
+			children = (
+				CD8C5D332D57BC45000B188A /* TowerDefenseTests.swift */,
+			);
+			path = TowerDefenseTests;
+			sourceTree = "<group>";
+		};
+		CD8C5D3C2D57BC45000B188A /* TowerDefenseUITests */ = {
+			isa = PBXGroup;
+			children = (
+				CD8C5D3D2D57BC45000B188A /* TowerDefenseUITests.swift */,
+				CD8C5D3F2D57BC45000B188A /* TowerDefenseUITestsLaunchTests.swift */,
+			);
+			path = TowerDefenseUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CD8C5D1E2D57BC44000B188A /* TowerDefense */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CD8C5D432D57BC45000B188A /* Build configuration list for PBXNativeTarget "TowerDefense" */;
+			buildPhases = (
+				CD8C5D1B2D57BC44000B188A /* Sources */,
+				CD8C5D1C2D57BC44000B188A /* Frameworks */,
+				CD8C5D1D2D57BC44000B188A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TowerDefense;
+			productName = TowerDefense;
+			productReference = CD8C5D1F2D57BC44000B188A /* TowerDefense.app */;
+			productType = "com.apple.product-type.application";
+		};
+		CD8C5D2E2D57BC45000B188A /* TowerDefenseTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CD8C5D462D57BC45000B188A /* Build configuration list for PBXNativeTarget "TowerDefenseTests" */;
+			buildPhases = (
+				CD8C5D2B2D57BC45000B188A /* Sources */,
+				CD8C5D2C2D57BC45000B188A /* Frameworks */,
+				CD8C5D2D2D57BC45000B188A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CD8C5D312D57BC45000B188A /* PBXTargetDependency */,
+			);
+			name = TowerDefenseTests;
+			productName = TowerDefenseTests;
+			productReference = CD8C5D2F2D57BC45000B188A /* TowerDefenseTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		CD8C5D382D57BC45000B188A /* TowerDefenseUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CD8C5D492D57BC45000B188A /* Build configuration list for PBXNativeTarget "TowerDefenseUITests" */;
+			buildPhases = (
+				CD8C5D352D57BC45000B188A /* Sources */,
+				CD8C5D362D57BC45000B188A /* Frameworks */,
+				CD8C5D372D57BC45000B188A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CD8C5D3B2D57BC45000B188A /* PBXTargetDependency */,
+			);
+			name = TowerDefenseUITests;
+			productName = TowerDefenseUITests;
+			productReference = CD8C5D392D57BC45000B188A /* TowerDefenseUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CD8C5D172D57BC44000B188A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1540;
+				LastUpgradeCheck = 1540;
+				TargetAttributes = {
+					CD8C5D1E2D57BC44000B188A = {
+						CreatedOnToolsVersion = 15.4;
+					};
+					CD8C5D2E2D57BC45000B188A = {
+						CreatedOnToolsVersion = 15.4;
+						TestTargetID = CD8C5D1E2D57BC44000B188A;
+					};
+					CD8C5D382D57BC45000B188A = {
+						CreatedOnToolsVersion = 15.4;
+						TestTargetID = CD8C5D1E2D57BC44000B188A;
+					};
+				};
+			};
+			buildConfigurationList = CD8C5D1A2D57BC44000B188A /* Build configuration list for PBXProject "TowerDefense" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = CD8C5D162D57BC44000B188A;
+			productRefGroup = CD8C5D202D57BC44000B188A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CD8C5D1E2D57BC44000B188A /* TowerDefense */,
+				CD8C5D2E2D57BC45000B188A /* TowerDefenseTests */,
+				CD8C5D382D57BC45000B188A /* TowerDefenseUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CD8C5D1D2D57BC44000B188A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CD8C5D2A2D57BC45000B188A /* Preview Assets.xcassets in Resources */,
+				CD8C5D272D57BC45000B188A /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CD8C5D2D2D57BC45000B188A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CD8C5D372D57BC45000B188A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CD8C5D1B2D57BC44000B188A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CD8C5D252D57BC44000B188A /* ContentView.swift in Sources */,
+				CD8C5D232D57BC44000B188A /* TowerDefenseApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CD8C5D2B2D57BC45000B188A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CD8C5D342D57BC45000B188A /* TowerDefenseTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CD8C5D352D57BC45000B188A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CD8C5D3E2D57BC45000B188A /* TowerDefenseUITests.swift in Sources */,
+				CD8C5D402D57BC45000B188A /* TowerDefenseUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CD8C5D312D57BC45000B188A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CD8C5D1E2D57BC44000B188A /* TowerDefense */;
+			targetProxy = CD8C5D302D57BC45000B188A /* PBXContainerItemProxy */;
+		};
+		CD8C5D3B2D57BC45000B188A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CD8C5D1E2D57BC44000B188A /* TowerDefense */;
+			targetProxy = CD8C5D3A2D57BC45000B188A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		CD8C5D412D57BC45000B188A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		CD8C5D422D57BC45000B188A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CD8C5D442D57BC45000B188A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"TowerDefense/Preview Content\"";
+				DEVELOPMENT_TEAM = CJ7BZ8FLC7;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yiyuan.TowerDefense;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		CD8C5D452D57BC45000B188A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"TowerDefense/Preview Content\"";
+				DEVELOPMENT_TEAM = CJ7BZ8FLC7;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yiyuan.TowerDefense;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		CD8C5D472D57BC45000B188A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = CJ7BZ8FLC7;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yiyuan.TowerDefenseTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TowerDefense.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TowerDefense";
+			};
+			name = Debug;
+		};
+		CD8C5D482D57BC45000B188A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = CJ7BZ8FLC7;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yiyuan.TowerDefenseTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TowerDefense.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TowerDefense";
+			};
+			name = Release;
+		};
+		CD8C5D4A2D57BC45000B188A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = CJ7BZ8FLC7;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yiyuan.TowerDefenseUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = TowerDefense;
+			};
+			name = Debug;
+		};
+		CD8C5D4B2D57BC45000B188A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = CJ7BZ8FLC7;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yiyuan.TowerDefenseUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = TowerDefense;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CD8C5D1A2D57BC44000B188A /* Build configuration list for PBXProject "TowerDefense" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CD8C5D412D57BC45000B188A /* Debug */,
+				CD8C5D422D57BC45000B188A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CD8C5D432D57BC45000B188A /* Build configuration list for PBXNativeTarget "TowerDefense" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CD8C5D442D57BC45000B188A /* Debug */,
+				CD8C5D452D57BC45000B188A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CD8C5D462D57BC45000B188A /* Build configuration list for PBXNativeTarget "TowerDefenseTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CD8C5D472D57BC45000B188A /* Debug */,
+				CD8C5D482D57BC45000B188A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CD8C5D492D57BC45000B188A /* Build configuration list for PBXNativeTarget "TowerDefenseUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CD8C5D4A2D57BC45000B188A /* Debug */,
+				CD8C5D4B2D57BC45000B188A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CD8C5D172D57BC44000B188A /* Project object */;
+}
