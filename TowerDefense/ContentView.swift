@@ -202,7 +202,7 @@ struct Monster: Identifiable {
     var health: Double
     let fullHealth: Double
     var speed: CGFloat
-    var slowdownFactor: Double = 1.0     // 一枪使目标速度下降的比例，多枪累积
+    var slowdownFactor: Double = 1.0     // 降速因子，一枪使目标速度下降，多枪累积
     var pathIndex = 0
 
     init(position: CGPoint, type: MonsterType, level: Int) {
@@ -240,7 +240,6 @@ class Tower: ObservableObject, Identifiable {
     var position: Position                  // 位置所在行列
     var center: CGPoint                     // 中心点点位置， 由初始化程序自动算出
     var rotationAngle: Double               // 炮弹的破坏能力， 起始为1
-//    var topLevel: Int                       // 炮塔的最大级别，起始为5
     var damage: Double                      // 炮弹的破坏能力， 起始为1.0
     var range: CGFloat                      // 射程范围， 起始为50.0
     var upgradeIncreaseCost: Int            // 每升一级需要增加的金币， 根据不同的炮塔不同
@@ -256,7 +255,6 @@ class Tower: ObservableObject, Identifiable {
         self.position = position
         self.center = CGPoint(x: position.col * 50 + 25, y: position.row * 50 + 25)
         self.rotationAngle = 0.0
-//        self.topLevel = topLevel
         self.damage = damage
         self.range = range
         self.upgradeIncreaseCost = type.cost
@@ -273,7 +271,14 @@ class Tower: ObservableObject, Identifiable {
         let deltaY = target.y - center.y
         rotationAngle = atan2(deltaY, deltaX)
     }
+}
 
+// 炮塔子类：爆能枪
+class Blaster: Tower {
+    init(position: Position) {
+        // 每个种类多防御塔，基本属性在这里设置
+        super.init(type: .blaster, position: position, damage: 5.0, range: 100.0, fireRate: 1.0, velocityOfBullet: 10.0, sizeOfBullet: 4.0)
+    }
     // 开火
     func fire(at monsters: [Monster], bullets: inout [Bullet]) {
         // 如果间隔的时间不够 不能开火
@@ -304,14 +309,6 @@ class Tower: ObservableObject, Identifiable {
     }
 }
 
-// 炮塔子类：爆能枪
-class Blaster: Tower {
-    init(position: Position) {
-        // 每个种类多防御塔，基本属性在这里设置
-        super.init(type: .blaster, position: position, damage: 5.0, range: 100.0, fireRate: 1.0, velocityOfBullet: 10.0, sizeOfBullet: 4.0)
-    }
-}
-
 // 炮塔子类：冰冻塔
 class Freezer: Tower {
     var slowdownFactor: Double     // 一枪使目标速度下降的比例，多枪累积
@@ -325,7 +322,7 @@ class Freezer: Tower {
         super.init(type: .freezer, position: position, damage: 1.0, range: 100.0, fireRate: 1.0, velocityOfBullet: 10.0, sizeOfBullet: 4.0)
     }
     
-    override func fire(at monsters: [Monster], bullets: inout [Bullet]) {
+    func iceFire(at monsters: [Monster], iceBullets: inout [IceBullet]) {
         // 如果间隔的时间不够 不能开火
         guard Date().timeIntervalSince(lastFireTime) > fireRate else { return }
 
@@ -342,7 +339,7 @@ class Freezer: Tower {
                 // 但是在横纵方向的分量是不同的
                 let velocity = CGVector(dx: velocityOfBullet * dx / sqrt(dx*dx+dy*dy), dy: velocityOfBullet * dy / sqrt(dx*dx+dy*dy))
 
-                bullets.append(IceBullet(
+                iceBullets.append(IceBullet(
                     position: center,
                     velocity: velocity,
                     damage: damage,  // 使用当前伤害值
@@ -364,7 +361,7 @@ class Laser: Tower {
     }
 
     // 开火
-    override func fire(at monsters: [Monster], bullets: inout [Bullet]) {
+    func laserFire(at monsters: [Monster], laserBullets: inout [LaserBullet]) {
         // 如果间隔的时间不够 不能开火
         guard Date().timeIntervalSince(lastFireTime) > fireRate else { return }
 
@@ -378,7 +375,7 @@ class Laser: Tower {
             // 但是在横纵方向的分量是不同的
             let velocity = CGVector(dx: velocityOfBullet * dx / sqrt(dx*dx+dy*dy), dy: velocityOfBullet * dy / sqrt(dx*dx+dy*dy))
 
-            bullets.append(LaserBullet(
+            laserBullets.append(LaserBullet(
                 position: center,
                 velocity: velocity,
                 damage: damage,  // 使用当前伤害值
@@ -442,10 +439,6 @@ class Magnetic: Tower {
         }
         lastFireTime = Date() // 记录这次开火的时间
     }
-    // 重置开火方法
-    override func fire(at monsters: [Monster], bullets: inout [Bullet]) {
-        // 什么也不做
-    }
 }
 // 炮塔子类：魔法塔
 class Magic: Tower {
@@ -454,8 +447,8 @@ class Magic: Tower {
 
     init(position: Position) {
         // 每个种类多防御塔，基本属性在这里设置
-        self.slowdownFactor = 0.95
-        self.maxSlowdownFactor = 0.85
+        self.slowdownFactor = 0.9
+        self.maxSlowdownFactor = 0.7
 
         // 每个种类多防御塔，基本属性在这里设置
         super.init(type: .magic, position: position, damage: 0.5, range: 75.0, fireRate: 2.0, velocityOfBullet: 1.0, sizeOfBullet: 1.0)
@@ -496,10 +489,6 @@ class Magic: Tower {
         }
         lastFireTime = Date() // 记录这次开火的时间
     }
-    // 重置开火方法
-    override func fire(at monsters: [Monster], bullets: inout [Bullet]) {
-        // 什么也不做
-    }
 }
 
 // 炮塔子类：银行
@@ -510,11 +499,6 @@ class Bank: Tower {
         // 每个种类多防御塔，基本属性在这里设置
         super.init(type: .bank, position: position, damage: 0.0, range: 0.0, fireRate: 1000.0, velocityOfBullet: 1.0, sizeOfBullet: 1.0)
     }
-
-    // 重置开火方法
-    override func fire(at monsters: [Monster], bullets: inout [Bullet]) {
-        // 什么也不做
-    }
     
     func settleInterest() {
         self.value = Int(Double(self.value) * (self.interestRate + 100) / 100)
@@ -522,7 +506,7 @@ class Bank: Tower {
 }
 
 // 爆能枪子弹模型
-class Bullet: Identifiable {
+struct Bullet: Identifiable {
     let id = UUID()
     var position: CGPoint
     let velocity: CGVector
@@ -540,20 +524,44 @@ class Bullet: Identifiable {
 }
 
 // 寒冰子弹模型
-class IceBullet: Bullet {
+struct IceBullet: Identifiable {
+    let id = UUID()
+    var position: CGPoint
+    let velocity: CGVector
+    let damage: Double
+    let size: CGFloat
+    var color: Color
+
     let slowdownFactor: Double
     let maxSlowdownFactor: Double  // 最大降速，不能把怪兽定住走不动，不同级别的能力不同，最高级别的不宜低于0.2, 0.8->0.5->0.2
 
     init(position: CGPoint, velocity: CGVector, damage: Double, size: CGFloat, slowdownFactor: Double, maxSlowdownFactor: Double) {
+        self.position = position
+        self.velocity = velocity
+        self.damage = damage
+        self.size = size
+        self.color = .blue
+
         self.slowdownFactor = slowdownFactor
         self.maxSlowdownFactor = maxSlowdownFactor
-        super.init(position: position, velocity: velocity, damage: damage, size: size, color: .blue)
     }
 }
 // 激光子弹模型
-class LaserBullet: Bullet {
+struct LaserBullet: Identifiable {
+    let id = UUID()
+    var position: CGPoint
+    let velocity: CGVector
+    let damage: Double
+    let size: CGFloat
+    var color: Color
+
     init(position: CGPoint, velocity: CGVector, damage: Double, size: CGFloat) {
-        super.init(position: position, velocity: velocity, damage: damage, size: size, color: .white)
+        self.position = position
+        self.velocity = velocity
+        self.damage = damage
+        self.size = size
+        self.color = .white
+//        super.init(position: position, velocity: velocity, damage: damage, size: size, color: .white)
     }
 }
 
@@ -607,6 +615,8 @@ class GameManager: ObservableObject {
     @Published var monsters: [Monster]                = []               // 怪兽组
     @Published var towers: [Tower]                    = []               // 炮塔组
     @Published var bullets: [Bullet]                  = []               // 子弹组 应用于普通炮塔的攻击
+    @Published var iceBullets: [IceBullet]            = []               // 寒冰子弹组 应用于寒冰炮塔的攻击
+    @Published var laserBullets: [LaserBullet]        = []               // 激光子弹组 应用于激光炮塔的攻击
     @Published var lightningRings: [LightningRing]    = []               // 光环组 应用于魔法炮塔的攻击
     @Published var lightningBolts: [LightningBolt]    = []               // 闪电组 应用于磁能炮塔的攻击
     @Published var floatingTexts: [FloatingText]      = []               // 用动画显示增减数
@@ -755,8 +765,18 @@ class GameManager: ObservableObject {
         
         // 炮塔开火
         for index in towers.indices {
-            // 普通炮塔
-            towers[index].fire(at: monsters, bullets: &bullets)
+            // 爆能枪
+            if let blasterTower = towers[index] as? Blaster {
+                blasterTower.fire(at: monsters, bullets: &bullets)
+            }
+            // 寒冰塔
+            if let freezerTower = towers[index] as? Freezer {
+                freezerTower.iceFire(at: monsters, iceBullets: &iceBullets)
+            }
+            // 激爆塔
+            if let laserTower = towers[index] as? Laser {
+                laserTower.laserFire(at: monsters, laserBullets: &laserBullets)
+            }
             // 魔法塔
             if let magicTower = towers[index] as? Magic {
                 magicTower.attack(at: &monsters, coins: &coins, lightningRings: &lightningRings, floatingTexts: &floatingTexts)
@@ -768,6 +788,8 @@ class GameManager: ObservableObject {
         }
         // 移动炮弹
         moveBullets()
+        moveIceBullets()
+        moveLaserBullets()
 
         // 移除过时的（超过4秒）动画文字
         floatingTexts = floatingTexts.filter { Date().timeIntervalSince($0.appearanceTime) < 4.0 }
@@ -824,10 +846,48 @@ class GameManager: ObservableObject {
                           $0.position.y - bullet.position.y) < 20
                 }) {
                     monsters[monsterIndex].health -= bullet.damage
-                    if let iceBullet = bullets[index] as? IceBullet {
-                        if monsters[monsterIndex].slowdownFactor > iceBullet.maxSlowdownFactor {
-                            monsters[monsterIndex].slowdownFactor *= iceBullet.slowdownFactor
-                        }
+                    if monsters[monsterIndex].health <= 0 {
+                        // 添加金币 增加一个增减动画
+                        floatingTexts.append(
+                            FloatingText(
+                                position: monsters[monsterIndex].position,
+                                increment: Int(monsters[monsterIndex].fullHealth * 1.0)
+                            )
+                        )
+                        coins += Int(monsters[monsterIndex].fullHealth * 1.0)
+                        
+                        monsters.remove(at: monsterIndex)
+                        AudioServicesPlaySystemSound(1016) // 音效  死亡
+                        aMonsterDie()
+                    } else {
+                        AudioServicesPlaySystemSound(1104) // 音效  中弹
+                    }
+                    bullets.remove(at: index)
+                }
+            }
+        }
+    }
+    // 移动寒冰炮弹
+    func moveIceBullets() {
+        for (index, bullet) in iceBullets.enumerated().reversed() {
+            iceBullets[index].position.x += bullet.velocity.dx
+            iceBullets[index].position.y += bullet.velocity.dy
+
+            // 清除超出屏幕的子弹
+            if abs(iceBullets[index].position.x) > 1000 {
+                iceBullets.remove(at: index)
+            } else if abs(iceBullets[index].position.y) > 1000 {
+                iceBullets.remove(at: index)
+            } else {
+                // 与怪兽碰撞检测
+                if let monsterIndex = monsters.firstIndex(where: {
+                    hypot($0.position.x - bullet.position.x,
+                          $0.position.y - bullet.position.y) < 20
+                }) {
+                    monsters[monsterIndex].health -= bullet.damage
+                    // 降速
+                    if monsters[monsterIndex].slowdownFactor > bullet.maxSlowdownFactor {
+                        monsters[monsterIndex].slowdownFactor *= bullet.slowdownFactor
                     }
                     if monsters[monsterIndex].health <= 0 {
                         // 添加金币 增加一个增减动画
@@ -845,16 +905,50 @@ class GameManager: ObservableObject {
                     } else {
                         AudioServicesPlaySystemSound(1104) // 音效  中弹
                     }
-                    if bullets[index] is LaserBullet {
-                        // 激光子弹有穿透作用，不用移除
+                    iceBullets.remove(at: index)
+                }
+            }
+        }
+    }
+    // 移动炮弹
+    func moveLaserBullets() {
+        for (index, bullet) in laserBullets.enumerated().reversed() {
+            laserBullets[index].position.x += bullet.velocity.dx
+            laserBullets[index].position.y += bullet.velocity.dy
+
+            // 清除超出屏幕的子弹
+            if abs(laserBullets[index].position.x) > 1000 {
+                laserBullets.remove(at: index)
+            } else if abs(laserBullets[index].position.y) > 1000 {
+                laserBullets.remove(at: index)
+            } else {
+                // 与怪兽碰撞检测
+                if let monsterIndex = monsters.firstIndex(where: {
+                    hypot($0.position.x - bullet.position.x,
+                          $0.position.y - bullet.position.y) < 20
+                }) {
+                    monsters[monsterIndex].health -= bullet.damage
+                    if monsters[monsterIndex].health <= 0 {
+                        // 添加金币 增加一个增减动画
+                        floatingTexts.append(
+                            FloatingText(
+                                position: monsters[monsterIndex].position,
+                                increment: Int(monsters[monsterIndex].fullHealth * 1.0)
+                            )
+                        )
+                        coins += Int(monsters[monsterIndex].fullHealth * 1.0)
+                        
+                        monsters.remove(at: monsterIndex)
+                        AudioServicesPlaySystemSound(1016) // 音效  死亡
+                        aMonsterDie()
                     } else {
-                        bullets.remove(at: index)
+                        AudioServicesPlaySystemSound(1104) // 音效  中弹
                     }
                 }
             }
         }
     }
-    
+
     func placeATower(ofType type: TowerType, at position: Position) {
         switch type {
         case .blaster:
@@ -896,18 +990,18 @@ class GameManager: ObservableObject {
         )
         coins -= towers[index].upgradeIncreaseCost * (towers[index].level + 1)
         towers[index].level += 1
-        towers[index].damage *= 1.2
-        towers[index].range *= 1.2
-        towers[index].velocityOfBullet *= 1.2
-        towers[index].fireRate *= 0.8
+        towers[index].damage *= 1.3
+        towers[index].range *= 1.15
+        towers[index].velocityOfBullet *= 1.1
+        towers[index].fireRate *= 0.9
         towers[index].value += towers[index].upgradeIncreaseCost * towers[index].level
-        towers[index].sizeOfBullet *= 1.2
+        towers[index].sizeOfBullet *= 1.1
         if let freezerTower = towers[index] as? Freezer {
             freezerTower.slowdownFactor *= 0.9
-            freezerTower.maxSlowdownFactor *= 0.8
+            freezerTower.maxSlowdownFactor *= 0.9
         }
         if let magneticTower = towers[index] as? Magnetic {
-            magneticTower.minStrengthenFactor *= 1.02
+            magneticTower.minStrengthenFactor *= 1.1
         }
         if let magicTower = towers[index] as? Magic {
             magicTower.slowdownFactor *= 0.9
@@ -942,18 +1036,18 @@ class GameManager: ObservableObject {
         )
         coins += reduceValue * 8 / 10
         towers[index].level -= 1
-        towers[index].damage /= 0.9
-        towers[index].range /= 1.5
-        towers[index].velocityOfBullet /= 1.5
+        towers[index].damage /= 1.3
+        towers[index].range /= 1.15
+        towers[index].velocityOfBullet /= 1.1
         towers[index].fireRate /= 0.9
         towers[index].value -= reduceValue
         towers[index].sizeOfBullet /= 1.1
         if let freezerTower = towers[index] as? Freezer {
             freezerTower.slowdownFactor /= 0.9
-            freezerTower.maxSlowdownFactor /= 0.8
+            freezerTower.maxSlowdownFactor /= 0.9
         }
         if let magneticTower = towers[index] as? Magnetic {
-            magneticTower.minStrengthenFactor /= 1.02
+            magneticTower.minStrengthenFactor /= 1.1
         }
         if let magicTower = towers[index] as? Magic {
             magicTower.slowdownFactor /= 0.9
@@ -1477,12 +1571,26 @@ struct TDGameView: View {
 
                     // 子弹
                     ForEach(game.bullets) { bullet in
+                        Capsule()
+                            .frame(width: bullet.size, height: bullet.size)
+                            .position(bullet.position)
+                            .foregroundColor(bullet.color)
+                    }
+                    // 寒冰子弹
+                    ForEach(game.iceBullets) { bullet in
                         Circle()
                             .frame(width: bullet.size, height: bullet.size)
                             .position(bullet.position)
                             .foregroundColor(bullet.color)
                     }
-                    
+                    // 激光子弹
+                    ForEach(game.laserBullets) { bullet in
+                        Circle()
+                            .frame(width: bullet.size, height: bullet.size)
+                            .position(bullet.position)
+                            .foregroundColor(bullet.color)
+                    }
+
                     // 闪电环
                     ForEach(game.lightningRings) { lightningRing in
                         LightningRingEffectView(position: lightningRing.position, radius: lightningRing.radius).opacity(0.1)
@@ -1581,7 +1689,7 @@ struct TowerView: View {
                 .fill(tower.type.color)
                 .frame(width: 40, height: 40)
                 .shadow(radius: 5)
-                .overlay(Text("\(tower.type.rawValue.prefix(1))").foregroundColor(.gray))
+                .overlay(Text("\(tower.type.rawValue.prefix(1))").foregroundColor(.black))
         }
     }
 }
