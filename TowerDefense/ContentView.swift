@@ -1572,21 +1572,24 @@ struct TDGameView: View {
                     // 子弹
                     ForEach(game.bullets) { bullet in
                         Capsule()
-                            .frame(width: bullet.size, height: bullet.size)
+                            .frame(width: bullet.size * 3, height: bullet.size)
+                            .rotationEffect(.degrees(vectorToAngle(x: bullet.velocity.dx, y: bullet.velocity.dy)))
                             .position(bullet.position)
                             .foregroundColor(bullet.color)
                     }
                     // 寒冰子弹
                     ForEach(game.iceBullets) { bullet in
-                        Circle()
-                            .frame(width: bullet.size, height: bullet.size)
+                        Capsule()
+                            .frame(width: bullet.size * 3, height: bullet.size)
+                            .rotationEffect(.degrees(vectorToAngle(x: bullet.velocity.dx, y: bullet.velocity.dy)))
                             .position(bullet.position)
                             .foregroundColor(bullet.color)
                     }
                     // 激光子弹
                     ForEach(game.laserBullets) { bullet in
-                        Circle()
-                            .frame(width: bullet.size, height: bullet.size)
+                        Capsule()
+                            .frame(width: bullet.size * 3, height: bullet.size)
+                            .rotationEffect(.degrees(vectorToAngle(x: bullet.velocity.dx, y: bullet.velocity.dy)))
                             .position(bullet.position)
                             .foregroundColor(bullet.color)
                     }
@@ -1646,6 +1649,17 @@ struct TDGameView: View {
                 Spacer()
             }
         }
+    }
+    func vectorToAngle(x: Double, y: Double) -> Double {
+        let radians = atan2(y, x)
+        var degrees = radians * 180 / .pi
+        
+        // 标准化到 0-360 度
+        if degrees < 0 {
+            degrees += 360
+        }
+        
+        return degrees
     }
 }
 
