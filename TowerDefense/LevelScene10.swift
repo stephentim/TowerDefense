@@ -12,10 +12,10 @@ let levelScene10 = LevelScene(
     name: "近在咫尺",
     designer: "史提芬",
     isUnlocked: true,
-    difficulty: "容易",
+    difficulty: "**",
     startCoins: 20000,
-    startLives: 10,
-    wavecount: 60,
+    startLives: 20,
+    wavecount: 70,
     isFixedRoad: true,
     cells: [
         [.empty, .empty, .empty, .empty, .empty, .empty, .empty, .empty],      // 1
@@ -39,6 +39,5 @@ let levelScene10 = LevelScene(
             CGPoint(x: 125, y: 625),  // 2
             CGPoint(x: 275, y: 625),  // 3
             CGPoint(x: 275, y:  75),  // 4
-            CGPoint(x: 225, y:  75)],  // 5
-    wavesId: 0
+            CGPoint(x: 225, y:  75)]  // 5
 )

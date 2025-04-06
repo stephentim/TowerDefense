@@ -13,7 +13,7 @@ let levelScene12 = LevelScene(
     name: "我C",
     designer: "史提芬",
     isUnlocked: true,
-    difficulty: "地狱级",
+    difficulty: "***",
     startCoins: 20000,
     startLives: 20,
     wavecount: 70,
@@ -47,6 +47,5 @@ let levelScene12 = LevelScene(
         CGPoint(x: 275, y: 625),
         CGPoint(x: 275, y: 575),
         CGPoint(x: 325, y: 575),
-        CGPoint(x: 325, y: 375)],
-    wavesId: 2
+        CGPoint(x: 325, y: 375)]
 )

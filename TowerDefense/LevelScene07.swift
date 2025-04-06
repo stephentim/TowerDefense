@@ -14,10 +14,10 @@ let levelScene07 = LevelScene(
     name: "OHH，NO，你不该来",
     designer: "史提芬",
     isUnlocked: true,
-    difficulty: "容易",
+    difficulty: "**",
     startCoins: 20000,
-    startLives: 10,
-    wavecount: 60,
+    startLives: 20,
+    wavecount: 70,
     isFixedRoad: true,
     cells: [
         [.road, .road, .road, .road, .road, .road, .road, .road],      // 1
@@ -62,6 +62,5 @@ let levelScene07 = LevelScene(
         CGPoint(x: 375, y:  25),  // 23
         CGPoint(x: 375, y: 175),  // 24
         CGPoint(x: 325, y: 175)   // 25
-    ],
-    wavesId: 2
+    ]
 )

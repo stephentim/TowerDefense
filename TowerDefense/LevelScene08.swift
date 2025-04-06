@@ -14,10 +14,10 @@ let levelScene08 = LevelScene(
     name: "123木头人",
     designer: "史提芬",
     isUnlocked: true,
-    difficulty: "容易",
+    difficulty: "**",
     startCoins: 20000,
-    startLives: 10,
-    wavecount: 60,
+    startLives: 20,
+    wavecount: 70,
     isFixedRoad: true,
     cells: [
         [.road, .road, .road, .road, .road, .road, .road, .road],      // 1
@@ -80,6 +80,5 @@ let levelScene08 = LevelScene(
             CGPoint(x: 375, y: 225),  // 41
             CGPoint(x: 325, y: 225),  // 42
             CGPoint(x: 325, y: 175)   // 43
-    ],
-    wavesId: 2
+    ]
 )

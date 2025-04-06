@@ -13,10 +13,10 @@ let levelScene00 = LevelScene(
     name: "八爪鱼？两爪鱼！",
     designer: "史提芬",
     isUnlocked: true,
-    difficulty: "容易",
+    difficulty: "*",
     startCoins: 20000,
     startLives: 20,
-    wavecount: 60,
+    wavecount: 70,
     isFixedRoad: true,
     cells: [
         [.empty, .empty, .empty, .empty, .empty, .empty, .empty, .empty],
@@ -47,6 +47,5 @@ let levelScene00 = LevelScene(
         CGPoint(x: 325, y: 425),
         CGPoint(x: 325, y: 675),
         CGPoint(x: 75, y: 675)
-    ],
-    wavesId: 0
+    ]
 )

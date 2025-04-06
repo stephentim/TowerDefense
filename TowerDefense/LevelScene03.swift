@@ -14,10 +14,10 @@ let levelScene03 = LevelScene(
     name: "人生无常，大肠包小肠",
     designer: "史提芬",
     isUnlocked: true,
-    difficulty: "容易",
+    difficulty: "**",
     startCoins: 20000,
-    startLives: 10,
-    wavecount: 60,
+    startLives: 20,
+    wavecount: 70,
     isFixedRoad: true,
     cells: [
         [.road, .road, .road, .road, .road, .road, .road, .road],
@@ -52,6 +52,5 @@ let levelScene03 = LevelScene(
         CGPoint(x: 375, y: 575),
         CGPoint(x: 225, y: 575),
         CGPoint(x: 225, y: 675)
-    ],
-    wavesId: 1
+    ]
 )

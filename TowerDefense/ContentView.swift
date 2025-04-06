@@ -13,11 +13,11 @@ import CoreGraphics
 // MARK: - 数据模型
 // 怪兽类型
 enum MonsterType: String {
-    case snail = "🐌"      // 蜗牛
     case spider = "🕷️"     // 蜘蛛
+    case ghost = "👻"      // 鬼
+    case snail = "🐌"      // 蜗牛
     case crab = "🦀"       // 螃蟹
     case alien = "👽"      // 外星人
-    case ghost = "👻"      // 鬼
     case pumpkin = "🎃"    // 南瓜灯
     case dung = "💩"       // 屎
     case eyes = "👀"       // 眼睛
@@ -27,11 +27,11 @@ enum MonsterType: String {
     
     var health: Double {
         switch self {
-        case .snail:    return 50          // 蜗牛
         case .spider:   return 10          // 蜘蛛
+        case .ghost:    return 20          // 鬼
+        case .snail:    return 50          // 蜗牛
         case .crab:     return 100         // 螃蟹
         case .alien:    return 200         // 外星人
-        case .ghost:    return 20          // 鬼
         case .pumpkin:  return 300         // 南瓜灯
         case .dung:     return 400         // 屎
         case .eyes:     return 500         // 眼睛
@@ -42,11 +42,11 @@ enum MonsterType: String {
     }
     var speed: CGFloat {
         switch self {
-        case .snail:    return 1         // 蜗牛
         case .spider:   return 8         // 蜘蛛
+        case .ghost:    return 10        // 鬼
+        case .snail:    return 1         // 蜗牛
         case .crab:     return 2         // 螃蟹
         case .alien:    return 9         // 外星人
-        case .ghost:    return 10        // 鬼
         case .pumpkin:  return 7         // 南瓜灯
         case .dung:     return 3         // 屎
         case .eyes:     return 4         // 眼睛
@@ -55,21 +55,6 @@ enum MonsterType: String {
         case .devil:    return 5         // 小恶魔
         }
     }
-//    var description: String {
-//        switch self {
-//        case .snail:    return "🐌"         // 蜗牛
-//        case .spider:   return "🕷️"         // 蜘蛛
-//        case .crab:     return "🦀"         // 螃蟹
-//        case .alien:    return "👽"         // 外星人
-//        case .ghost:    return "👻"         // 鬼
-//        case .pumpkin:  return "🎃"         // 南瓜灯
-//        case .dung:     return "💩"         // 屎
-//        case .eyes:     return "👀"         // 眼睛
-//        case .pig:      return "🐖"         // 猪
-//        case .elephant: return "🦣"         // 大象
-//        case .devil:    return "😈"         // 小恶魔
-//        }
-//    }
 }
 
 // 炮塔类型
@@ -141,21 +126,20 @@ struct Position {
     let col: Int
 }
 
-struct Wave {
-    let MonsterCode: [MonsterCode]    // 类型, 级别
-}
+//struct Wave {
+//    let MonsterCode: [MonsterCode]    // 类型, 级别
+//}
 
-struct Waves {
-    let waves: [Wave]                 // 敌人的波次配置
-}
+//struct Waves {
+//    let waves: [Wave]                 // 敌人的波次配置
+//}
 struct MonsterCode {
     let type: MonsterType      // 类型
     let level: Int             // 级别
 }
 
 // MARK: - 这里更改用哪个地图
-let sampleScene = [levelScene00, levelScene01, levelScene02, levelScene03, levelScene04, levelScene05, levelScene06, levelScene07, levelScene08, levelScene09, levelScene10, levelScene11, levelScene12, levelScene13]
-let sampleWaves = [waves00, waves01, waves02]
+let sampleScene = [levelScene00, levelScene01, levelScene02, levelScene03, levelScene04, levelScene05, levelScene06, levelScene07, levelScene08, levelScene09, levelScene10, levelScene11, levelScene12, levelScene13, levelScene14, levelScene15]
 
 struct GamePackage: Identifiable {
     let id: Int
@@ -178,7 +162,6 @@ struct LevelScene: Identifiable {
     let isFixedRoad: Bool             // 怪兽是否按固定路线走
     let cells: [[CellState]]          // 二维地图数据（0=路径，1=可建造区域，2=障碍）14行8列
     let pathPoints: [CGPoint]         // 敌人移动路径的关键点
-    let wavesId: Int
 }
 
 // 菜单数据模型
@@ -280,9 +263,9 @@ class Blaster: Tower {
         super.init(type: .blaster, position: position, damage: 5.0, range: 100.0, fireRate: 1.0, velocityOfBullet: 10.0, sizeOfBullet: 4.0)
     }
     // 开火
-    func fire(at monsters: [Monster], bullets: inout [Bullet]) {
+    func fire(at monsters: [Monster], acceleration: Double, bullets: inout [Bullet]) {
         // 如果间隔的时间不够 不能开火
-        guard Date().timeIntervalSince(lastFireTime) > fireRate else { return }
+        guard Date().timeIntervalSince(lastFireTime) > fireRate / acceleration else { return }
 
         // 向射程内的 最残的 怪兽开火
         let targets = monsters.filter({ hypot($0.position.x - self.center.x, $0.position.y - self.center.y) < self.range })
@@ -322,9 +305,9 @@ class Freezer: Tower {
         super.init(type: .freezer, position: position, damage: 1.0, range: 100.0, fireRate: 1.0, velocityOfBullet: 10.0, sizeOfBullet: 4.0)
     }
     
-    func iceFire(at monsters: [Monster], iceBullets: inout [IceBullet]) {
+    func iceFire(at monsters: [Monster], acceleration: Double, iceBullets: inout [IceBullet]) {
         // 如果间隔的时间不够 不能开火
-        guard Date().timeIntervalSince(lastFireTime) > fireRate else { return }
+        guard Date().timeIntervalSince(lastFireTime) > fireRate / acceleration else { return }
 
         // 向射程内的 速度最快的 怪兽开火
         let targets = monsters.filter({ hypot($0.position.x - self.center.x, $0.position.y - self.center.y) < self.range })
@@ -357,13 +340,13 @@ class Freezer: Tower {
 class Laser: Tower {
     init(position: Position) {
         // 每个种类多防御塔，基本属性在这里设置
-        super.init(type: .laser, position: position, damage: 5.0, range: 100.0, fireRate: 1.0, velocityOfBullet: 20.0, sizeOfBullet: 4.0)
+        super.init(type: .laser, position: position, damage: 5.0, range: 100.0, fireRate: 1.0, velocityOfBullet: 30.0, sizeOfBullet: 4.0)
     }
 
     // 开火
-    func laserFire(at monsters: [Monster], laserBullets: inout [LaserBullet]) {
+    func laserFire(at monsters: [Monster], acceleration: Double, laserBullets: inout [LaserBullet]) {
         // 如果间隔的时间不够 不能开火
-        guard Date().timeIntervalSince(lastFireTime) > fireRate else { return }
+        guard Date().timeIntervalSince(lastFireTime) > fireRate / acceleration else { return }
 
         // 向射程内的第一只怪兽开火
         if let target = monsters.first(where: { hypot($0.position.x - center.x, $0.position.y - center.y) < range }) {
@@ -403,13 +386,13 @@ class Magnetic: Tower {
     }
 
     // 攻击
-    func attack(at monsters: inout [Monster], lightningBolts: inout [LightningBolt]) {
-        guard Date().timeIntervalSince(lastFireTime) > fireRate else { return }
+    func attack(at monsters: inout [Monster], acceleration: Double, lightningBolts: inout [LightningBolt]) {
+        guard Date().timeIntervalSince(lastFireTime) > fireRate / acceleration else { return }
 
         // 逮住一个不放，直到血量为1
         if let previousMonster = monsters.filter({ hypot($0.position.x - self.center.x, $0.position.y - self.center.y) < self.range && $0.id == self.currentMonsterId && $0.health > 1 }).first {
             // 增强攻击能力且继续攻击previousMonster
-            self.strengthenFactor *= 1.02
+            self.strengthenFactor *= 1.05
             attackAMonster(in: &monsters, at: previousMonster, lightningBolts: &lightningBolts)
         } else {
             // 换一个攻击
@@ -455,16 +438,20 @@ class Magic: Tower {
     }
 
     // 用魔法攻击
-    func attack(at monsters: inout [Monster], coins: inout Int, lightningRings: inout [LightningRing], floatingTexts: inout [FloatingText]) {
+    func attack(at monsters: inout [Monster], acceleration: Double, coins: inout Int, lightningRings: inout [LightningRing], floatingTexts: inout [FloatingText]) {
         // 攻击逻辑
         // 如果间隔的时间不够 不能开火
-        guard Date().timeIntervalSince(lastFireTime) > fireRate else { return }
+        guard Date().timeIntervalSince(lastFireTime) > fireRate / acceleration else { return }
 
         // 向射程内的所有怪兽开火
+        var hadPlayAction = false
         for index in 0..<monsters.count {
             if hypot(monsters[index].position.x - center.x, monsters[index].position.y - center.y) < range {
-                // 动画
-                lightningRings.append(LightningRing(position: self.center, radius: self.range))
+                if !hadPlayAction {
+                    // 动画
+                    lightningRings.append(LightningRing(position: self.center, radius: self.range))
+                    hadPlayAction = true
+                }
                 // 减速
                 if monsters[index].slowdownFactor > self.maxSlowdownFactor {
                     monsters[index].slowdownFactor *= self.slowdownFactor
@@ -650,15 +637,13 @@ class GameManager: ObservableObject {
     }
     
     func startWave() {
-//        guard currentWave < levelScene.waves.count else { return }
-        guard currentWave < sampleWaves[levelScene.wavesId].waves.count else { return }
+        guard currentWave < levelScene.wavecount else { return }
+
+        let wave = waves[currentWave]
+
+        remainingMonstersOfCurrentWave = wave.count
         
-//        let wave = levelScene.waves[currentWave]
-        let wave = sampleWaves[levelScene.wavesId].waves[currentWave]
-        
-        remainingMonstersOfCurrentWave = wave.MonsterCode.count
-        
-        wave.MonsterCode.enumerated().forEach { index, monster in
+        wave.enumerated().forEach { index, monster in
             // 每1秒生产1个怪兽，如果想改变间隔时间在这里
             Timer.publish(every: Double(index), on: .main, in: .common)
                 .autoconnect()
@@ -693,7 +678,7 @@ class GameManager: ObservableObject {
         remainingMonstersOfCurrentWave -= 1
         if remainingMonstersOfCurrentWave <= 0 {
             // 全部怪兽死光了
-            if currentWave >= sampleWaves[levelScene.wavesId].waves.count {
+            if currentWave >= levelScene.wavecount {
                 // 如果最后一波
                 gameOverMessage = "恭喜你\n顺利通关！"
                 gameState = .gameOver
@@ -767,23 +752,23 @@ class GameManager: ObservableObject {
         for index in towers.indices {
             // 爆能枪
             if let blasterTower = towers[index] as? Blaster {
-                blasterTower.fire(at: monsters, bullets: &bullets)
+                blasterTower.fire(at: monsters, acceleration: acceleration, bullets: &bullets)
             }
             // 寒冰塔
             if let freezerTower = towers[index] as? Freezer {
-                freezerTower.iceFire(at: monsters, iceBullets: &iceBullets)
+                freezerTower.iceFire(at: monsters, acceleration: acceleration, iceBullets: &iceBullets)
             }
             // 激爆塔
             if let laserTower = towers[index] as? Laser {
-                laserTower.laserFire(at: monsters, laserBullets: &laserBullets)
+                laserTower.laserFire(at: monsters, acceleration: acceleration, laserBullets: &laserBullets)
             }
             // 魔法塔
             if let magicTower = towers[index] as? Magic {
-                magicTower.attack(at: &monsters, coins: &coins, lightningRings: &lightningRings, floatingTexts: &floatingTexts)
+                magicTower.attack(at: &monsters, acceleration: acceleration, coins: &coins, lightningRings: &lightningRings, floatingTexts: &floatingTexts)
             }
             // 磁能塔
             if let magneticTower = towers[index] as? Magnetic {
-                magneticTower.attack(at: &monsters, lightningBolts: &lightningBolts)
+                magneticTower.attack(at: &monsters, acceleration: acceleration, lightningBolts: &lightningBolts)
             }
         }
         // 移动炮弹
@@ -791,12 +776,12 @@ class GameManager: ObservableObject {
         moveIceBullets()
         moveLaserBullets()
 
-        // 移除过时的（超过4秒）动画文字
-        floatingTexts = floatingTexts.filter { Date().timeIntervalSince($0.appearanceTime) < 4.0 }
-        // 移除过时的（超过4秒）闪电环
-        lightningRings = lightningRings.filter { Date().timeIntervalSince($0.appearanceTime) < 4.0 }
-        // 移除过时的（超过4秒）闪电链
-        lightningBolts = lightningBolts.filter { Date().timeIntervalSince($0.appearanceTime) < 4.0 }
+        // 移除过时的（超过3秒）动画文字
+        floatingTexts = floatingTexts.filter { Date().timeIntervalSince($0.appearanceTime) < 3.0 }
+        // 移除过时的（超过3秒）闪电环
+        lightningRings = lightningRings.filter { Date().timeIntervalSince($0.appearanceTime) < 3.0 }
+        // 移除过时的（超过3秒）闪电链
+        lightningBolts = lightningBolts.filter { Date().timeIntervalSince($0.appearanceTime) < 3.0 }
     }
     
     // 移动怪兽
@@ -925,7 +910,7 @@ class GameManager: ObservableObject {
                 // 与怪兽碰撞检测
                 if let monsterIndex = monsters.firstIndex(where: {
                     hypot($0.position.x - bullet.position.x,
-                          $0.position.y - bullet.position.y) < 20
+                          $0.position.y - bullet.position.y) < 30
                 }) {
                     monsters[monsterIndex].health -= bullet.damage
                     if monsters[monsterIndex].health <= 0 {
@@ -1398,7 +1383,7 @@ struct LightningBoltEffectView: View {
                 style: StrokeStyle(lineWidth: strength, lineCap: .round, lineJoin: .round))
         .opacity(isVisible ? 1 : 0)
         .onAppear {
-            withAnimation(.easeInOut(duration: 0.02).repeatCount(1, autoreverses: true)) {
+            withAnimation(.easeInOut(duration: 0.025).repeatCount(1, autoreverses: true)) {
                 isVisible = true
             }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
@@ -1431,6 +1416,161 @@ struct LightningBoltEffectView: View {
     
     private func distance(_ a: CGPoint, _ b: CGPoint) -> CGFloat {
         sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2))
+    }
+}
+
+// MARK: - 怪兽视图
+struct MonsterView: View {
+    let monster: Monster
+    
+    init(_ monster: Monster) {
+        self.monster = monster
+    }
+
+    var body: some View {
+        ZStack {
+            TimelineView(.animation) { timeline in
+                Pie(endAngle: .degrees(monster.health / monster.fullHealth * 360))
+                    .foregroundColor(monster.health > 800 ? .purple : monster.health > 400 ? .cyan : monster.health > 200 ? .blue : monster.health > 100 ? .green : monster.health > 50 ? .yellow : .red)
+                    .frame(width: 40, height: 40)
+                    .transition(.scale)
+            }
+            Circle()
+                .overlay(Text("\(monster.type.rawValue)").font(.system(size: 35)))
+                .frame(width: 35, height: 35)
+            Text("\(monster.level)")
+                .foregroundColor(.white)
+                .shadow(color: .black, radius: 5)
+        }
+    }
+}
+
+// MARK: - 炮塔视图
+struct TowerView: View {
+    let tower: Tower
+    
+    init(_ tower: Tower) {
+        self.tower = tower
+    }
+    
+    var body: some View {
+        ZStack {
+            Circle()
+                .fill(tower.type.color)
+                .frame(width: 40, height: 40)
+                .shadow(radius: 5)
+                .overlay(Text("\(tower.type.rawValue.prefix(1))").foregroundColor(.black))
+        }
+    }
+}
+ 
+// MARK: - 地图视图
+struct CellView: View {
+    let cellState: CellState
+    
+    var body: some View {
+        ZStack {
+            Rectangle()
+                .opacity(0.3)
+            
+            if cellState != .empty {
+            }
+        }
+        .aspectRatio(1, contentMode: .fit)
+    }
+}
+
+// MARK: - 血条形状
+struct Pie: Shape {
+    var startAngle: Angle = Angle.zero
+    let endAngle: Angle
+    var clockwise = true
+    
+    func path(in rect: CGRect) -> Path {
+        let startAngle = startAngle - .degrees(90)
+        let endAngle = endAngle - .degrees(90)
+        
+        let center = CGPoint(x: rect.midX, y: rect.midY)
+        let radius = min(rect.width, rect.height) / 2
+        let start = CGPoint(
+            x: center.x + radius * cos(startAngle.radians), y: center.y + radius * sin(startAngle.radians)
+        )
+        
+        var p = Path()
+        p.move(to: center)
+        p.addLine(to: start)
+        p.addArc(
+            center: center,
+            radius: radius,
+            startAngle: startAngle,
+            endAngle: endAngle,
+            clockwise: !clockwise)
+        p.addLine(to: center)
+        
+        return p
+    }
+}
+
+// MARK: - 炮塔选择视图
+struct TowerSelectionView: View {
+    @Binding var isPresented: Bool
+    @Binding var coins: Int
+    
+    let onTowerSelected: (TowerType) -> Void
+    
+    var body: some View {
+        VStack {
+            ForEach(TowerType.allCases, id: \.self) { type in
+                Button {
+                    onTowerSelected(type)
+                    isPresented = false
+                } label: {
+                    Text(type.description + "\(type.cost)")
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .foregroundColor(type.cost > coins ? .black : .red)
+                        .cornerRadius(5)
+                        .shadow(radius: 5)
+                        .background(Color.white)
+                }
+                .disabled(type.cost > coins ? true : false)
+            }
+        }
+        .frame(width: 200)
+        .background(Color.blue.opacity(0.2))
+        .cornerRadius(10)
+        .shadow(radius: 5)
+    }
+}
+
+struct FlyingNumber: View {
+    let number: Int
+    
+    @State private var offset: CGFloat = 0
+    
+    var body: some View {
+        if number != 0 {
+            Text(number, format: .number.sign(strategy: .always()))
+                .font(.headline)
+                .foregroundColor(number < 0 ? .red : .green)
+                .shadow(color: .black, radius: 1.5, x: 1, y: 1)
+                .offset(x: 0, y: offset)
+                .opacity(offset != 0 ? 0 : 1)
+                .onAppear {
+                    withAnimation(.easeInOut(duration: 1.5)) {
+                        offset = number < 0 ? 50 : -50
+                    }
+                }
+                .onDisappear {
+                    offset = 0
+                }
+        }
+    }
+}
+
+struct ContentView: View {
+    var body: some View {
+        TDGameView(game: GameManager(levelScene: sampleScene[0]))
     }
 }
 
@@ -1588,7 +1728,7 @@ struct TDGameView: View {
                     // 激光子弹
                     ForEach(game.laserBullets) { bullet in
                         Capsule()
-                            .frame(width: bullet.size * 3, height: bullet.size)
+                            .frame(width: bullet.size * 8, height: bullet.size)
                             .rotationEffect(.degrees(vectorToAngle(x: bullet.velocity.dx, y: bullet.velocity.dy)))
                             .position(bullet.position)
                             .foregroundColor(bullet.color)
@@ -1635,7 +1775,7 @@ struct TDGameView: View {
                     Text("\(game.coins)金\n\(game.lives)血")
                         .multilineTextAlignment(.trailing)
                     Spacer()
-                    Text("\(game.currentWave)/\(sampleWaves[game.levelScene.wavesId].waves.count)波\n\(game.monsters.count)/\(game.remainingMonstersOfCurrentWave)怪")
+                    Text("\(game.currentWave)/\(game.levelScene.wavecount)波\n\(game.monsters.count)/\(game.remainingMonstersOfCurrentWave)怪")
                         .multilineTextAlignment(.trailing)
                     Spacer()
                     VStack {
@@ -1660,160 +1800,5 @@ struct TDGameView: View {
         }
         
         return degrees
-    }
-}
-
-// MARK: - 怪兽视图
-struct MonsterView: View {
-    let monster: Monster
-    
-    init(_ monster: Monster) {
-        self.monster = monster
-    }
-
-    var body: some View {
-        ZStack {
-            TimelineView(.animation) { timeline in
-                Pie(endAngle: .degrees(monster.health / monster.fullHealth * 360))
-                    .foregroundColor(monster.health > 800 ? .purple : monster.health > 400 ? .cyan : monster.health > 200 ? .blue : monster.health > 100 ? .green : monster.health > 50 ? .yellow : .red)
-                    .frame(width: 40, height: 40)
-                    .transition(.scale)
-            }
-            Circle()
-                .overlay(Text("\(monster.type.rawValue)").font(.system(size: 35)))
-                .frame(width: 35, height: 35)
-            Text("\(monster.level)")
-                .foregroundColor(.white)
-                .shadow(color: .black, radius: 5)
-        }
-    }
-}
-
-// MARK: - 炮塔视图
-struct TowerView: View {
-    let tower: Tower
-    
-    init(_ tower: Tower) {
-        self.tower = tower
-    }
-    
-    var body: some View {
-        ZStack {
-            Circle()
-                .fill(tower.type.color)
-                .frame(width: 40, height: 40)
-                .shadow(radius: 5)
-                .overlay(Text("\(tower.type.rawValue.prefix(1))").foregroundColor(.black))
-        }
-    }
-}
- 
-// MARK: - 地图视图
-struct CellView: View {
-    let cellState: CellState
-    
-    var body: some View {
-        ZStack {
-            Rectangle()
-                .opacity(0.3)
-            
-            if cellState != .empty {
-            }
-        }
-        .aspectRatio(1, contentMode: .fit)
-    }
-}
-
-// MARK: - 血条形状
-struct Pie: Shape {
-    var startAngle: Angle = Angle.zero
-    let endAngle: Angle
-    var clockwise = true
-    
-    func path(in rect: CGRect) -> Path {
-        let startAngle = startAngle - .degrees(90)
-        let endAngle = endAngle - .degrees(90)
-        
-        let center = CGPoint(x: rect.midX, y: rect.midY)
-        let radius = min(rect.width, rect.height) / 2
-        let start = CGPoint(
-            x: center.x + radius * cos(startAngle.radians), y: center.y + radius * sin(startAngle.radians)
-        )
-        
-        var p = Path()
-        p.move(to: center)
-        p.addLine(to: start)
-        p.addArc(
-            center: center,
-            radius: radius,
-            startAngle: startAngle,
-            endAngle: endAngle,
-            clockwise: !clockwise)
-        p.addLine(to: center)
-        
-        return p
-    }
-}
-
-// MARK: - 炮塔选择视图
-struct TowerSelectionView: View {
-    @Binding var isPresented: Bool
-    @Binding var coins: Int
-    
-    let onTowerSelected: (TowerType) -> Void
-    
-    var body: some View {
-        VStack {
-            ForEach(TowerType.allCases, id: \.self) { type in
-                Button {
-                    onTowerSelected(type)
-                    isPresented = false
-                } label: {
-                    Text(type.description + "\(type.cost)")
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .foregroundColor(type.cost > coins ? .black : .red)
-                        .cornerRadius(5)
-                        .shadow(radius: 5)
-                        .background(Color.white)
-                }
-                .disabled(type.cost > coins ? true : false)
-            }
-        }
-        .frame(width: 200)
-        .background(Color.blue.opacity(0.2))
-        .cornerRadius(10)
-        .shadow(radius: 5)
-    }
-}
-
-struct ContentView: View {
-    var body: some View {
-        TDGameView(game: GameManager(levelScene: sampleScene[0]))
-    }
-}
-
-struct FlyingNumber: View {
-    let number: Int
-    
-    @State private var offset: CGFloat = 0
-    
-    var body: some View {
-        if number != 0 {
-            Text(number, format: .number.sign(strategy: .always()))
-                .font(.headline)
-                .foregroundColor(number < 0 ? .red : .green)
-                .shadow(color: .black, radius: 1.5, x: 1, y: 1)
-                .offset(x: 0, y: offset)
-                .opacity(offset != 0 ? 0 : 1)
-                .onAppear {
-                    withAnimation(.easeInOut(duration: 1.5)) {
-                        offset = number < 0 ? 50 : -50
-                    }
-                }
-                .onDisappear {
-                    offset = 0
-                }
-        }
     }
 }

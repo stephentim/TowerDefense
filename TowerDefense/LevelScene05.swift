@@ -13,10 +13,10 @@ let levelScene05 = LevelScene(
     name: "北京保卫战",
     designer: "史提芬",
     isUnlocked: true,
-    difficulty: "容易",
+    difficulty: "***",
     startCoins: 20000,
     startLives: 20,
-    wavecount: 60,
+    wavecount: 70,
     isFixedRoad: true,
     cells: [
         [.departure, .empty, .road, .road, .road, .empty, .road, .road],
@@ -44,6 +44,5 @@ let levelScene05 = LevelScene(
         CGPoint(x: 375, y: 25),
         CGPoint(x: 325, y: 25),
         CGPoint(x: 325, y: 625),
-        CGPoint(x: 275, y: 625)],
-    wavesId: 2
+        CGPoint(x: 275, y: 625)]
 )
